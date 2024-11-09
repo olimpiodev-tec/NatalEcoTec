@@ -60,10 +60,10 @@ function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     logMessage("INFO    onConnect");
 
-    const subscribeTopicFilter = "natalecotec/ligar/faixa/1";
-    const qos = 1;
-    logMessage(`INFO    Subscribing to: [Topic: ${subscribeTopicFilter}, QoS: ${qos}]`);
-    client.subscribe(subscribeTopicFilter, { qos: Number(qos) });
+    // const subscribeTopicFilter = "natalecotec/ligar/faixa/1";
+    // const qos = 1;
+    // logMessage(`INFO    Subscribing to: [Topic: ${subscribeTopicFilter}, QoS: ${qos}]`);
+    // client.subscribe(subscribeTopicFilter, { qos: Number(qos) });
 }
 function onConnected(reconnect, uri) {
     // Once a connection has been made, make a subscription and send a message.
@@ -103,4 +103,9 @@ function logMessage(message) {
 
 function onClickFaixa(faixaNumuero) {
     logMessage(`INFO    Clicou na faixa ${faixaNumuero}`)
+    // Publish a Message
+    const message = new Paho.MQTT.Message("Ligar");
+    message.destinationName = `natalecotec/ligar/faixa/${faixaNumuero}`;
+    message.qos = 0;
+    client.send(message)
 }
