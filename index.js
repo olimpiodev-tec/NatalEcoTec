@@ -112,7 +112,14 @@ function onClickFaixa(faixaNumuero) {
     
     // Publica a mensagem
     const message = new Paho.MQTT.Message("Ligar");
-    message.destinationName = `natalecotec/ligar/faixa/${faixaNumuero}`;
     message.qos = 0;
+    message.destinationName = `natalecotec/ligar/faixa/${faixaNumuero}`;
     client.send(message)
+
+    if (faixaNumuero == 'yellow') {
+        message.destinationName = `natalecotec/ligar/faixa/estrela`;
+        client.send(message)
+    }
+
+
 } 
